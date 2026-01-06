@@ -8,21 +8,20 @@
 <style>
 :root{
     --main:#00f7ff;
-    --bg:#0b0f1a;
     --card:rgba(255,255,255,.08);
     --border:rgba(255,255,255,.15);
 }
 
 *{
     box-sizing:border-box;
-    font-family: "Segoe UI", system-ui;
+    font-family:"Segoe UI",system-ui;
 }
 
 body{
     margin:0;
     min-height:100vh;
     background:
-        radial-gradient(circle at top, #1a1f35, #05060c),
+        radial-gradient(circle at top,#1a1f35,#05060c),
         linear-gradient(120deg,#020024,#090979,#00d4ff);
     display:flex;
     align-items:center;
@@ -30,23 +29,22 @@ body{
     color:#fff;
 }
 
-/* Card */
 .card{
     width:90%;
     max-width:420px;
     background:var(--card);
-    backdrop-filter: blur(14px);
+    backdrop-filter:blur(14px);
     border:1px solid var(--border);
     border-radius:20px;
     padding:25px;
     box-shadow:0 0 40px rgba(0,255,255,.15);
     text-align:center;
-    animation:fade 0.8s ease;
+    animation:fade .8s ease;
 }
 
 @keyframes fade{
-    from{opacity:0; transform:translateY(15px)}
-    to{opacity:1; transform:none}
+    from{opacity:0;transform:translateY(15px)}
+    to{opacity:1}
 }
 
 h1{
@@ -56,7 +54,6 @@ h1{
     text-shadow:0 0 12px rgba(0,255,255,.7);
 }
 
-/* Key box */
 .key-box{
     margin:20px 0;
 }
@@ -73,7 +70,6 @@ h1{
     outline:none;
 }
 
-/* Buttons */
 .btn{
     width:100%;
     margin-top:12px;
@@ -98,7 +94,6 @@ h1{
     color:#fff;
 }
 
-/* Info */
 .info{
     margin-top:18px;
     font-size:14px;
@@ -111,7 +106,6 @@ h1{
     color:var(--main);
 }
 
-/* Footer */
 .footer{
     margin-top:18px;
     font-size:13px;
@@ -127,17 +121,40 @@ h1{
 
 <body>
 
+<script>
+/* ===== CHECK DOWNLOAD ROUTE ===== */
+const isDownloadPage =
+    location.hostname === "playping.pages.dev" &&
+    location.pathname === "/download";
+
+/* ===== DOWNLOAD MODE ===== */
+if(isDownloadPage){
+    document.body.innerHTML = "";
+
+    const a = document.createElement("a");
+    a.href = "https://playping.pages.dev/playping.apk";
+    a.download = "playping.apk";
+    document.body.appendChild(a);
+    a.click();
+
+    setTimeout(() => {
+        history.back();
+    }, 1000);
+}
+</script>
+
 <audio id="backgroundMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card">
-    <h1>🔑 Key PlayPing Premium Hôm Nay</h1>
+<div class="card" id="mainUI">
+    <h1>🔑 Key PlayPing Hôm Nay</h1>
 
     <div class="key-box">
         <input id="keyInput" readonly>
         <button class="btn" onclick="copyKey()">📋 Copy Key</button>
         <button class="btn secondary" id="musicBtn" onclick="toggleMusic()">▶ Play Music</button>
+        <button class="btn" onclick="goDownload()">⬇️ Tải PlayPing Premium</button>
     </div>
 
     <div class="info" id="dateText"></div>
@@ -149,6 +166,17 @@ h1{
 </div>
 
 <script>
+/* ===== HIDE UI ON /download ===== */
+if(isDownloadPage){
+    const ui = document.getElementById("mainUI");
+    if(ui) ui.remove();
+}
+
+/* ===== MAIN PAGE FUNCTIONS ===== */
+function goDownload(){
+    location.href = "https://playping.pages.dev/download";
+}
+
 function updateTime(){
     const now = new Date();
     const h = String(now.getHours()).padStart(2,'0');
@@ -164,8 +192,7 @@ function updateTime(){
 
 function getKey(){
     const params = new URLSearchParams(location.search);
-    document.getElementById("keyInput").value =
-        params.get("key") || "";
+    document.getElementById("keyInput").value = params.get("ma") || "";
 }
 
 function copyKey(){
@@ -188,9 +215,12 @@ function toggleMusic(){
     }
 }
 
-setInterval(updateTime,1000);
-updateTime();
-getKey();
+/* ===== INIT MAIN PAGE ===== */
+if(!isDownloadPage){
+    updateTime();
+    getKey();
+    setInterval(updateTime,1000);
+}
 </script>
 
 </body>
