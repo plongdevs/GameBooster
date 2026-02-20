@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlayPing Premium</title>
+<title>GetKey</title>
 
 <style>
 :root{
@@ -121,40 +121,17 @@ h1{
 
 <body>
 
-<script>
-/* ===== CHECK DOWNLOAD ROUTE ===== */
-const isDownloadPage =
-    location.hostname === "playping.pages.dev" &&
-    location.pathname === "/download";
-
-/* ===== DOWNLOAD MODE ===== */
-if(isDownloadPage){
-    document.body.innerHTML = "";
-
-    const a = document.createElement("a");
-    a.href = "https://playping.pages.dev/playping.zip";
-    a.download = "playping.zip";
-    document.body.appendChild(a);
-    a.click();
-
-    setTimeout(() => {
-        history.back();
-    }, 1000);
-}
-</script>
-
 <audio id="backgroundMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card" id="mainUI">
-    <h1>🔑 Key PlayPing Hôm Nay</h1>
+<div class="card">
+    <h1>🔑 Key Hôm Nay Của Bạn</h1>
 
     <div class="key-box">
         <input id="keyInput" readonly>
         <button class="btn" onclick="copyKey()">📋 Copy Key</button>
         <button class="btn secondary" id="musicBtn" onclick="toggleMusic()">▶ Play Music</button>
-        <button class="btn" onclick="goDownload()">⬇️ Tải PlayPing Premium</button>
     </div>
 
     <div class="info" id="dateText"></div>
@@ -166,17 +143,6 @@ if(isDownloadPage){
 </div>
 
 <script>
-/* ===== HIDE UI ON /download ===== */
-if(isDownloadPage){
-    const ui = document.getElementById("mainUI");
-    if(ui) ui.remove();
-}
-
-/* ===== MAIN PAGE FUNCTIONS ===== */
-function goDownload(){
-    location.href = "https://playping.pages.dev/download";
-}
-
 function updateTime(){
     const now = new Date();
     const h = String(now.getHours()).padStart(2,'0');
@@ -215,12 +181,9 @@ function toggleMusic(){
     }
 }
 
-/* ===== INIT MAIN PAGE ===== */
-if(!isDownloadPage){
-    updateTime();
-    getKey();
-    setInterval(updateTime,1000);
-}
+updateTime();
+getKey();
+setInterval(updateTime,1000);
 </script>
 
 </body>
