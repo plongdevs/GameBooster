@@ -1,35 +1,38 @@
 <!--Code by PLongDeveloper don't steal my code :(-->
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameBooster - Download</title>
+<title>SuperPing — Download</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
     --bg: #04060d;
-    --card: rgba(10, 14, 26, 0.85);
+    --card: rgba(10,14,26,0.85);
     --accent: #00e5ff;
     --accent2: #7b61ff;
     --green: #00ffaa;
     --text: #e8eaf0;
-    --muted: rgba(200,210,230,0.4);
+    --muted: rgba(200,210,230,0.45);
     --border: rgba(0,229,255,0.12);
     --glow: 0 0 40px rgba(0,229,255,0.15);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; }
+
+  /* ✅ flex-column để footer dính đáy */
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
-    padding: 40px 20px 80px;
   }
 
   /* ── BACKGROUND ── */
@@ -52,11 +55,49 @@
     pointer-events: none; z-index: 0;
     animation: floatGlow 10s ease-in-out infinite alternate-reverse;
   }
-  @keyframes floatGlow { from { transform: scale(1); } to { transform: scale(1.2); } }
+  @keyframes floatGlow {
+    from { transform: scale(1); }
+    to   { transform: scale(1.2); }
+  }
+
+  /* ── NAV — giống trang chủ ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(4,6,13,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px;
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--text);
+  }
+  .nav-brand span { color: var(--accent); }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 10px var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.6; transform:scale(0.85); }
+  }
+  .nav-badge {
+    font-size: 0.62rem; color: var(--accent);
+    background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.25);
+    padding: 3px 10px; border-radius: 20px;
+  }
 
   /* ── LAYOUT ── */
-  .wrap {
+  /* ✅ flex:1 để đẩy footer xuống đáy */
+  .main-content {
     position: relative; z-index: 1;
+    flex: 1;
+    padding: 40px 20px 60px;
+  }
+  .wrap {
     max-width: 680px; margin: 0 auto;
     display: flex; flex-direction: column; gap: 20px;
   }
@@ -87,57 +128,59 @@
   }
 
   /* ── CARD 1: APP INFO ── */
-  .card-app {
-    border-color: rgba(0,229,255,0.2);
-  }
+  .card-app { border-color: rgba(0,229,255,0.2); }
   .card-app::after {
     content: '';
     position: absolute; bottom: 0; right: 0;
     width: 180px; height: 180px;
     background: radial-gradient(circle at bottom right, rgba(0,229,255,0.07), transparent 70%);
+    pointer-events: none;
   }
 
   .app-header { display: flex; align-items: flex-start; gap: 20px; }
+
+  /* ✅ Gộp 2 định nghĩa .app-icon thành 1 */
   .app-icon {
     width: 72px; height: 72px; flex-shrink: 0;
-    background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(123,97,255,0.15));
-    border: 1px solid rgba(0,229,255,0.3);
-    border-radius: 20px;
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 18px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 2rem;
+    overflow: hidden;
     box-shadow: 0 0 30px rgba(0,229,255,0.1);
   }
+  .app-icon img {
+    width: 80%; height: 80%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px rgba(0,229,255,0.35));
+  }
+
   .app-meta { flex: 1; }
   .app-name {
     font-size: 1.6rem; font-weight: 800;
-    color: #fff;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
+    color: #fff; letter-spacing: -0.5px; line-height: 1.1;
   }
   .app-name span { color: var(--accent); }
   .app-subtitle {
     font-size: 0.85rem; color: var(--muted);
-    margin-top: 6px; line-height: 1.5;
-    font-weight: 400;
+    margin-top: 6px; line-height: 1.5; font-weight: 400;
   }
   .app-badges {
     display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
   }
   .badge-pill {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.65rem; font-weight: 700;
     padding: 4px 10px; border-radius: 20px;
     border: 1px solid; letter-spacing: 0.5px;
   }
-  .badge-pill.ver { color: var(--accent); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.08); }
-  .badge-pill.free { color: var(--green); border-color: rgba(0,255,170,0.3); background: rgba(0,255,170,0.08); }
-  .badge-pill.size { color: var(--muted); border-color: rgba(200,210,230,0.15); background: rgba(200,210,230,0.05); }
+  .badge-pill.ver  { color: var(--accent); border-color: rgba(0,229,255,0.3);    background: rgba(0,229,255,0.08); }
+  .badge-pill.free { color: var(--green);  border-color: rgba(0,255,170,0.3);    background: rgba(0,255,170,0.08); }
+  .badge-pill.size { color: var(--muted);  border-color: rgba(200,210,230,0.15); background: rgba(200,210,230,0.05); }
 
   .divider { height: 1px; background: var(--border); margin: 24px 0; }
 
   .btn-download {
-    width: 100%;
-    padding: 16px;
+    width: 100%; padding: 16px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #000; border: none; border-radius: 16px;
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -167,6 +210,7 @@
     position: absolute; top: 0; right: 0;
     width: 160px; height: 160px;
     background: radial-gradient(circle at top right, rgba(123,97,255,0.08), transparent 70%);
+    pointer-events: none;
   }
 
   .card-header {
@@ -180,12 +224,9 @@
   }
   .card-icon.purple { background: rgba(123,97,255,0.15); color: var(--accent2); border: 1px solid rgba(123,97,255,0.25); }
   .card-icon.teal   { background: rgba(0,255,170,0.1);   color: var(--green);   border: 1px solid rgba(0,255,170,0.2);  }
-  .card-title {
-    font-size: 1rem; font-weight: 800; letter-spacing: 0.3px;
-  }
+  .card-title { font-size: 1rem; font-weight: 800; letter-spacing: 0.3px; }
   .card-ver-tag {
     margin-left: auto;
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.65rem; color: var(--accent2);
     background: rgba(123,97,255,0.1);
     border: 1px solid rgba(123,97,255,0.25);
@@ -214,20 +255,32 @@
   .card-changelog { border-color: rgba(0,255,170,0.15); }
   .card-changelog::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
 
+  /* ✅ Style cho .beta-note — thiếu hoàn toàn trong bản gốc */
+  .beta-note {
+    width: 100%;
+    font-size: 0.78rem;
+    color: rgba(255,204,0,0.8);
+    background: rgba(255,204,0,0.06);
+    border: 1px solid rgba(255,204,0,0.18);
+    border-radius: 10px;
+    padding: 10px 14px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
   .changelog-ver-block { margin-bottom: 24px; }
   .changelog-ver-block:last-child { margin-bottom: 0; }
 
   .ver-header {
     display: flex; align-items: center; gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 12px; flex-wrap: wrap;
   }
   .ver-tag {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.75rem; font-weight: 700;
-    padding: 5px 12px; border-radius: 8px;
-    letter-spacing: 0.5px;
+    padding: 5px 12px; border-radius: 8px; letter-spacing: 0.5px;
   }
-  .ver-tag.latest {
+  /* ✅ Thêm .ver-tag.latest và .ver-tag.beta và .ver-tag.old */
+  .ver-tag.latest, .ver-tag.beta {
     background: rgba(0,229,255,0.12); color: var(--accent);
     border: 1px solid rgba(0,229,255,0.3);
   }
@@ -237,16 +290,15 @@
   }
   .ver-date {
     font-size: 0.72rem; color: var(--muted);
-    font-family: 'Plus Jakarta Sans', sans-serif;
   }
-  .ver-latest-badge {
+  /* ✅ .ver-badge — thiếu trong bản gốc (chỉ có .ver-latest-badge nhưng HTML dùng .ver-badge) */
+  .ver-badge {
     margin-left: auto;
     font-size: 0.6rem; font-weight: 700;
     padding: 3px 8px; border-radius: 6px;
     background: rgba(0,229,255,0.1); color: var(--accent);
     border: 1px solid rgba(0,229,255,0.2);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    letter-spacing: 0.5px; text-transform: uppercase;
   }
 
   .change-list { display: flex; flex-direction: column; gap: 7px; padding-left: 4px; }
@@ -254,19 +306,39 @@
     display: flex; align-items: flex-start; gap: 10px;
     font-size: 0.82rem; color: rgba(200,210,230,0.75); line-height: 1.5;
   }
-  .change-item i {
-    font-size: 0.6rem; flex-shrink: 0; margin-top: 5px;
-  }
-  .change-item i.add  { color: var(--green); }
-  .change-item i.fix  { color: #ffcc00; }
-  .change-item i.del  { color: #ff4d6d; }
-  .change-item i.imp  { color: var(--accent); }
+  .change-item i { font-size: 0.6rem; flex-shrink: 0; margin-top: 5px; }
+  .change-item i.add { color: var(--green); }
+  .change-item i.fix { color: #ffcc00; }
+  .change-item i.del { color: #ff4d6d; }
+  .change-item i.imp { color: var(--accent); }
 
   .ver-sep {
     height: 1px;
     background: linear-gradient(90deg, rgba(0,255,170,0.15), transparent);
     margin: 20px 0;
   }
+
+  /* ── FOOTER — giống trang chủ ── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    background: rgba(10,14,26,0.6);
+    backdrop-filter: blur(12px);
+    padding: 32px 24px;
+  }
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+  .footer-copy span { color: var(--accent); font-weight: 700; }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a {
+    font-size: 0.75rem; color: rgba(0,229,255,0.5);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 480px) {
@@ -275,79 +347,9 @@
     .app-icon { width: 60px; height: 60px; }
     .app-name { font-size: 1.3rem; }
   }
-    /* ── FIXED FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      background: rgba(10,14,26,0.6);
-      backdrop-filter: blur(12px);
-      padding: 32px 24px;
-    }
-    
-    .footer-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    
-    .footer-copy {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    
-    .footer-copy span {
-      color: var(--accent);
-      font-weight: 700;
-    }
-    
-    .footer-links {
-      display: flex;
-      gap: 18px;
-    }
-    
-    .footer-links a {
-      font-size: 0.75rem;
-      color: rgba(0,229,255,0.5);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-    
-    /* Mobile */
-    @media (max-width: 600px) {
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-    .app-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 18px;
-      background: rgba(0,229,255,0.08);
-      border: 1px solid rgba(0,229,255,0.2);
-    
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    
-      overflow: hidden;
-    }
-    
-    .app-icon img {
-      width: 80%;
-      height: 80%;
-      object-fit: contain;
-      filter: drop-shadow(0 0 12px rgba(0,229,255,0.35));
-    }
+  @media (max-width: 600px) {
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
 </style>
 </head>
 <body>
@@ -356,198 +358,150 @@
 <div class="bg-glow-1"></div>
 <div class="bg-glow-2"></div>
 
-<div class="wrap">
+<!-- ✅ Thêm nav giống trang chủ -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-dot"></div>
+    Super<span>Ping</span>
+  </a>
+  <span class="nav-badge">v1.1-Beta_1</span>
+</nav>
 
-  <!-- ── CARD 1: APP INFO ── -->
-  <div class="card card-app">
-    <div class="app-header">
-      <div class="app-icon">
-      <img src="GameBooster-icon.png" alt="GameBooster Icon">
+<div class="main-content">
+  <div class="wrap">
+
+    <!-- ── CARD 1: APP INFO ── -->
+    <div class="card card-app">
+      <div class="app-header">
+        <div class="app-icon">
+          <img src="assets/superping-icon.png" alt="SuperPing Icon">
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Super<span>Ping</span></div>
+          <div class="app-subtitle">Tool hỗ trợ chơi game — nhẹ, nhanh, ổn định.<br>Không cần root, hoạt động ngầm.</div>
+          <div class="app-badges">
+            <span class="badge-pill ver">v1.1-Beta_1</span>
+            <span class="badge-pill free">Free</span>
+            <span class="badge-pill size">7 MB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn-download" onclick="handleDownload()">
+        <i class="fas fa-download"></i>
+        Tải Xuống APK
+      </button>
     </div>
-      <div class="app-meta">
-        <div class="app-name">Game<span>Booster</span></div>
-        <div class="app-subtitle">Tool hỗ trợ chơi game — nhẹ, nhanh, ổn định.<br>Không cần root, hoạt động ngầm.</div>
-        <div class="app-badges">
-          <span class="badge-pill ver">v1.1-Beta_1</span>
-          <span class="badge-pill free">Free</span>
-          <span class="badge-pill size">7 MB</span>
+
+    <!-- ── CARD 2: WHAT'S NEW ── -->
+    <div class="card card-whatsnew">
+      <div class="card-header">
+        <div class="card-icon purple"><i class="fas fa-star"></i></div>
+        <span class="card-title">What's New</span>
+        <span class="card-ver-tag">v1.1-Beta_1</span>
+      </div>
+
+      <div class="whatsnew-list">
+        <div class="whatsnew-item">
+          <div class="whatsnew-dot"></div>
+          <div class="whatsnew-text">
+            Hệ thống xác thực key hoàn toàn mới
+            <small>Hỗ trợ Custom Key tái sử dụng, phân quyền rõ ràng hơn</small>
+          </div>
+        </div>
+        <div class="whatsnew-item">
+          <div class="whatsnew-dot"></div>
+          <div class="whatsnew-text">
+            Thêm chế độ bảo trì từ xa
+            <small>Admin có thể bật/tắt bảo trì mà không cần cập nhật app</small>
+          </div>
+        </div>
+        <div class="whatsnew-item">
+          <div class="whatsnew-dot"></div>
+          <div class="whatsnew-text">
+            Lưu trạng thái đăng nhập local
+            <small>Mở app lại không cần đợi kết nối Firebase</small>
+          </div>
+        </div>
+        <div class="whatsnew-item">
+          <div class="whatsnew-dot"></div>
+          <div class="whatsnew-text">
+            Giao diện login được thiết kế lại
+            <small>Animation mượt, hỗ trợ show/hide key</small>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="divider"></div>
+    <!-- ── CARD 3: CHANGELOG ── -->
+    <div class="card card-changelog">
+      <div class="card-header">
+        <div class="card-icon teal"><i class="fas fa-code-branch"></i></div>
+        <span class="card-title">Change Log</span>
+      </div>
 
-    <button class="btn-download" onclick="handleDownload()">
-      <i class="fas fa-download"></i>
-      Tải Xuống APK
-    </button>
+      <!-- v1.1-Beta_1 -->
+      <div class="changelog-ver-block">
+        <!-- ✅ beta-note có style, hiển thị đúng -->
+        <div class="beta-note">
+          ⚠ Đây là phiên bản thử nghiệm (Beta) đầu tiên của v1.1 — trong quá trình sử dụng có thể phát sinh một số lỗi.
+        </div>
+        <div class="ver-header">
+          <span class="ver-tag beta">v1.1-Beta_1</span>
+          <span class="ver-date">2026-02-27</span>
+          <!-- ✅ Sửa "Lastest" → "Latest" -->
+          <span class="ver-badge">Latest</span>
+        </div>
+        <div class="change-list">
+          <div class="change-item"><i class="fas fa-plus add"></i> Thêm hệ thống key đăng nhập hoàn toàn mới</div>
+          <div class="change-item"><i class="fas fa-plus add"></i> Thêm chế độ bảo trì app, update app từ xa</div>
+          <div class="change-item"><i class="fas fa-plus add"></i> Thêm tính năng chỉnh sửa kích cỡ và âm thanh nút nổi</div>
+        </div>
+      </div>
+
+      <div class="ver-sep"></div>
+
+      <!-- v1.0 -->
+      <div class="changelog-ver-block">
+        <div class="ver-header">
+          <span class="ver-tag old">v1.0</span>
+          <!-- ✅ Sửa ngày sai 2025-23-02 → 2025-02-23 -->
+          <span class="ver-date">2025-02-23</span>
+        </div>
+        <div class="change-list">
+          <div class="change-item"><i class="fas fa-plus add"></i> Ra mắt phiên bản đầu tiên</div>
+          <div class="change-item"><i class="fas fa-plus add"></i> Các chức năng VPN cơ bản như Ghost, Tele, Freeze</div>
+        </div>
+      </div>
+    </div>
+
   </div>
-
-  <!-- ── CARD 2: WHAT'S NEW ── -->
-  <div class="card card-whatsnew">
-    <div class="card-header">
-      <div class="card-icon purple"><i class="fas fa-star"></i></div>
-      <span class="card-title">What's New</span>
-      <span class="card-ver-tag">v1.1-Beta_1</span>
-    </div>
-
-    <div class="whatsnew-list">
-      <div class="whatsnew-item">
-        <div class="whatsnew-dot"></div>
-        <div class="whatsnew-text">
-          Hệ thống xác thực key hoàn toàn mới
-          <small>Hỗ trợ Custom Key tái sử dụng, phân quyền rõ ràng hơn</small>
-        </div>
-      </div>
-      <div class="whatsnew-item">
-        <div class="whatsnew-dot"></div>
-        <div class="whatsnew-text">
-          Thêm chế độ bảo trì từ xa
-          <small>Admin có thể bật/tắt bảo trì mà không cần cập nhật app</small>
-        </div>
-      </div>
-      <div class="whatsnew-item">
-        <div class="whatsnew-dot"></div>
-        <div class="whatsnew-text">
-          Lưu trạng thái đăng nhập local
-          <small>Mở app lại không cần đợi kết nối Firebase</small>
-        </div>
-      </div>
-      <div class="whatsnew-item">
-        <div class="whatsnew-dot"></div>
-        <div class="whatsnew-text">
-          Giao diện login được thiết kế lại
-          <small>Animation mượt, hỗ trợ show/hide key</small>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-<div class="card card-changelog beta-build">
-  <div class="card-header">
-    <div class="card-icon teal"><i class="fas fa-code-branch"></i></div>
-    <span class="card-title">Change Log</span>
-  </div>
-  <div class="changelog-ver-block">
-    <div class="ver-header">
-    <div class="beta-note">
-  ⚠ Đây là phiên bản thử nghiệm (Beta) đầu tiên của phiên bản 1.1 nên khi sử dụng sẽ gặp 1 số lỗi
 </div>
-      <span class="ver-tag beta">v1.1-Beta1</span>
-      <span class="ver-date">2026-02-27</span>
-      <span class="ver-badge">Lastest</span>
-    </div>
-
-    <div class="change-list">
-      <div class="change-item">
-        <i class="fas fa-plus add"></i>
-        Thêm hệ thống key đăng nhập hoàn toàn mới
-      </div>
-
-      <div class="change-item">
-        <i class="fas fa-plus add"></i>
-        Thêm chế độ bảo trì app, update app từ xa
-      </div>
-
-      <div class="change-item">
-        <i class="fas fa-plus add"></i>
-        Thêm tính năng chỉnh sửa kích cỡ và âm thanh nút nổi
-      </div>
-    </div>
-  </div>
-
-  <div class="ver-sep"></div>
-<!--
-  <div class="changelog-ver-block">
-    <div class="ver-header">
-    <div class="beta-note">
-  ⚠ Đây là phiên bản thử nghiệm (Beta). Trong quá trình sử dụng có thể phát sinh một số lỗi.
-  Nếu bạn gặp sự cố, vui lòng liên hệ với chúng tôi để được hỗ trợ và khắc phục sớm nhất.
-</div>
-      <span class="ver-tag beta">v1.1-Beta1</span>
-      <span class="ver-date">2026-02-27</span>
-      <span class="ver-badge">Beta b</span>
-    </div>
-
-    <div class="change-list">
-      <div class="change-item">
-        <i class="fas fa-plus add"></i>
-        Thêm hệ thống key đăng nhập hoàn toàn mới
-      </div>
-
-      <div class="change-item">
-        <i class="fas fa-plus add"></i>
-        Thêm chế độ bảo trì app, update app từ xa
-      </div>
-
-      <div class="change-item">
-        <i class="fas fa-plus add"></i>
-        Thêm tính năng chỉnh sửa kích cỡ và âm thanh nút nổi
-      </div>
-    </div>
-  </div>
-
-  <div class="ver-sep"></div>
-  -->
-
-    <!--
-    Release 
-    <div class="changelog-ver-block">
-      <div class="ver-header">
-        <span class="ver-tag old">v1.1</span>
-        <span class="ver-date">2026-01-15</span>
-      </div>
-      <div class="change-list">
-        <div class="change-item"><i class="fas fa-plus add"></i> Thêm kiểm tra phiên bản app, tự động yêu cầu update</div>
-        <div class="change-item"><i class="fas fa-plus add"></i> Thêm danh sách thiết bị bị ban</div>
-        <div class="change-item"><i class="fas fa-wrench fix"></i> Fix dialog đăng nhập bị crash trên Android 11</div>
-        <div class="change-item"><i class="fas fa-arrow-up imp"></i> Tối ưu kết nối Firebase, giảm timeout</div>
-      </div>
-    </div>
-
-    <div class="ver-sep"></div>
-    -->
-
-    <!-- v1.0 -->
-    <div class="changelog-ver-block">
-      <div class="ver-header">
-        <span class="ver-tag old">v1.0</span>
-        <span class="ver-date">2025-23-02</span>
-      </div>
-      <div class="change-list">
-        <div class="change-item"><i class="fas fa-plus add"></i> Ra mắt phiên bản đầu tiên</div>
-        <div class="change-item"><i class="fas fa-plus add"></i> Các chức năng VPN cơ bản như Ghost, Tele, Freeze</div>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-  function handleDownload() {
-    const apkUrl = 'GameBooster.apk'; // Thay bằng link APK thật nếu host trên server
-    const a = document.createElement('a');
-    a.href = apkUrl;
-    a.download = 'GameBooster.apk';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }
-</script>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-copy">
-      © 2026 <span> GameBooster</span> · All rights reserved
-    </div>
+    <!-- ✅ Bỏ space thừa trước SuperPing -->
+    <div class="footer-copy">© 2026 <span>SuperPing</span> · All rights reserved</div>
     <div class="footer-links">
       <a href="terms.html">Điều khoản</a>
       <a href="privacy.html">Bảo mật</a>
     </div>
   </div>
 </footer>
+
+<script>
+  function handleDownload() {
+    const apkUrl = 'assets/superping.apk';
+    const a = document.createElement('a');
+    a.href = apkUrl;
+    a.download = 'superping.apk';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+</script>
 
 </body>
 </html>

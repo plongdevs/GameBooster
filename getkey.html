@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameBooster - GetKey</title>
+<!-- ✅ Sửa branding: GameBooster → SuperPing -->
+<title>SuperPing — Get Key</title>
 <meta name="robots" content="noindex, nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,17 +23,20 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; }
+
+  /* ✅ flex-column để footer dính đáy */
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
   }
 
+  /* ── BACKGROUND ── */
   .bg-grid {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background-image:
@@ -43,25 +47,63 @@
   .bg-orb {
     position: fixed; pointer-events: none; z-index: 0;
     border-radius: 50%; filter: blur(80px);
+    animation: orbFloat 10s ease-in-out infinite alternate;
   }
   .bg-orb-1 {
     width: 600px; height: 600px; top: -200px; left: -200px;
     background: rgba(0,229,255,0.05);
-    animation: orbFloat 10s ease-in-out infinite alternate;
   }
   .bg-orb-2 {
     width: 400px; height: 400px; bottom: -100px; right: -100px;
     background: rgba(123,97,255,0.06);
-    animation: orbFloat 12s ease-in-out infinite alternate-reverse;
+    animation-delay: -4s;
+    animation-direction: alternate-reverse;
   }
   @keyframes orbFloat {
-    from { transform: scale(1); }
+    from { transform: scale(1) translate(0,0); }
     to   { transform: scale(1.2) translate(15px,-15px); }
+  }
+
+  /* ── NAV — giống trang chủ ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(4,6,13,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px;
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--text);
+  }
+  .nav-brand span { color: var(--accent); }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 10px var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.6; transform:scale(0.85); }
+  }
+  .nav-badge {
+    font-size: 0.62rem; color: var(--accent);
+    background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.25);
+    padding: 3px 10px; border-radius: 20px;
+  }
+
+  /* ── MAIN — flex:1 để footer dính đáy ── */
+  .main-content {
+    position: relative; z-index: 1;
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 24px;
   }
 
   /* ── CARD ── */
   .card {
-    position: relative; z-index: 1;
     width: 100%; max-width: 420px;
     background: var(--card);
     border: 1px solid rgba(0,229,255,0.2);
@@ -71,6 +113,7 @@
     box-shadow: 0 0 80px rgba(0,229,255,0.07);
     text-align: center;
     animation: fadeUp 0.6s ease forwards;
+    position: relative; overflow: hidden;
   }
   .card::before {
     content: '';
@@ -124,7 +167,6 @@
   }
   .datetime-item { text-align: center; }
   .datetime-val {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1rem; font-weight: 700; color: var(--accent);
     display: block;
   }
@@ -137,7 +179,6 @@
   /* ── KEY INPUT ── */
   .key-section { margin-bottom: 20px; }
   .key-label {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase;
     color: var(--muted); margin-bottom: 10px; display: block; text-align: left;
   }
@@ -158,8 +199,7 @@
     caret-color: transparent;
   }
   .key-input:focus { border-color: rgba(0,229,255,0.4); box-shadow: 0 0 20px rgba(0,229,255,0.1); }
-  .key-input::placeholder { color: rgba(200,210,230,0.2); -webkit-text-fill-color: rgba(200,210,230,0.2); }
-  .key-input::-webkit-input-placeholder { color: rgba(200,210,230,0.2); -webkit-text-fill-color: rgba(200,210,230,0.2); }
+  .key-input::placeholder { color: rgba(200,210,230,0.2); }
   .copy-icon-btn {
     position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
     background: none; border: none; cursor: pointer;
@@ -216,75 +256,38 @@
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast i { color: var(--green); }
+  .toast.error { border-color: rgba(255,77,109,0.4); }
+  .toast.error i { color: #ff4d6d; }
 
-  /* ── FOOTER ── */
-  .card-footer {
-    margin-top: 24px;
-    font-family: 'Google Sans', 'Syne', sans-serif;
-    font-size: 0.72rem; font-weight: 500;
-    color: rgba(200,210,230,0.3); letter-spacing: 0.2px;
+  /* ── FOOTER — giống trang chủ ── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    background: rgba(10,14,26,0.6);
+    backdrop-filter: blur(12px);
+    padding: 32px 24px;
   }
-  .card-footer a {
-    color: rgba(0,229,255,0.45); text-decoration: none; transition: color 0.2s;
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
   }
-  .card-footer a:hover { color: var(--accent); }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+  .footer-copy span { color: var(--accent); font-weight: 700; }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a {
+    font-size: 0.75rem; color: rgba(0,229,255,0.5);
+    text-decoration: none; transition: color 0.2s; /* ✅ thêm property */
+  }
+  .footer-links a:hover { color: var(--accent); }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 460px) {
     .card { padding: 32px 22px; }
   }
-/* ── FIXED FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      background: rgba(10,14,26,0.6);
-      backdrop-filter: blur(12px);
-      padding: 32px 24px;
-    }
-    
-    .footer-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    
-    .footer-copy {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    
-    .footer-copy span {
-      color: var(--accent);
-      font-weight: 700;
-    }
-    
-    .footer-links {
-      display: flex;
-      gap: 18px;
-    }
-    
-    .footer-links a {
-      font-size: 0.75rem;
-      color: rgba(0,229,255,0.5);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-    
-    /* Mobile */
-    @media (max-width: 600px) {
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
+  @media (max-width: 600px) {
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
 </style>
 </head>
 <body>
@@ -302,44 +305,68 @@
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card">
+<!-- ✅ Nav đồng bộ với trang chủ -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-dot"></div>
+    Zew<span>Ping</span>
+  </a>
+  <span class="nav-badge">v1.1-Beta_1</span>
+</nav>
 
-  <div class="card-icon-wrap">🔑</div>
-  <div class="card-title">Key <span>Của Bạn</span></div>
-  <div class="card-sub">Sao chép key bên dưới và dán vào app để kích hoạt</div>
+<!-- ✅ Wrapper để footer dính đáy -->
+<div class="main-content">
+  <div class="card">
 
-  <div class="datetime-row">
-    <div class="datetime-item">
-      <span class="datetime-val" id="clockVal">--:--:--</span>
-      <span class="datetime-lbl">Giờ hiện tại</span>
+    <div class="card-icon-wrap">🔑</div>
+    <div class="card-title">Key <span>Của Bạn</span></div>
+    <div class="card-sub">Sao chép key bên dưới và dán vào app để kích hoạt</div>
+
+    <div class="datetime-row">
+      <div class="datetime-item">
+        <span class="datetime-val" id="clockVal">--:--:--</span>
+        <span class="datetime-lbl">Giờ hiện tại</span>
+      </div>
+      <span class="datetime-sep">·</span>
+      <div class="datetime-item">
+        <span class="datetime-val" id="dateVal">--/--/----</span>
+        <span class="datetime-lbl">Ngày hôm nay</span>
+      </div>
     </div>
-    <span class="datetime-sep">·</span>
-    <div class="datetime-item">
-      <span class="datetime-val" id="dateVal">--/--/----</span>
-      <span class="datetime-lbl">Ngày hôm nay</span>
-    </div>
-  </div>
 
-  <div class="key-section">
-    <span class="key-label"><i class="fas fa-key" style="margin-right:6px;"></i>Key của bạn</span>
-    <div class="key-input-wrap">
-      <input class="key-input" id="keyInput" readonly placeholder="Đang tải key...">
-      <button class="copy-icon-btn" onclick="copyKey()" title="Copy">
-        <i class="fas fa-copy"></i>
+    <div class="key-section">
+      <span class="key-label"><i class="fas fa-key" style="margin-right:6px;"></i>Key của bạn</span>
+      <div class="key-input-wrap">
+        <input class="key-input" id="keyInput" readonly placeholder="Đang tải key...">
+        <button class="copy-icon-btn" onclick="copyKey()" title="Copy">
+          <i class="fas fa-copy"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-copy" onclick="copyKey()">
+        <i class="fas fa-copy"></i> Sao Chép Key
+      </button>
+      <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">
+        <i class="fas fa-music" id="musicIcon"></i>
+        <span id="musicBtnText">Bật Nhạc</span>
       </button>
     </div>
-  </div>
 
-  <div class="btn-row">
-    <button class="btn btn-copy" onclick="copyKey()">
-      <i class="fas fa-copy"></i> Sao Chép Key
-    </button>
-    <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">
-      <i class="fas fa-music" id="musicIcon"></i>
-      <span id="musicBtnText">Bật Nhạc</span>
-    </button>
   </div>
 </div>
+
+<footer>
+  <div class="footer-inner">
+    <!-- ✅ Sửa branding: GameBooster → SuperPing -->
+    <div class="footer-copy">© 2026 <span>SuperPing</span> · All rights reserved</div>
+    <div class="footer-links">
+      <a href="terms.html">Điều khoản</a>
+      <a href="privacy.html">Bảo mật</a>
+    </div>
+  </div>
+</footer>
 
 <script>
   // ── CLOCK ──────────────────────────────────────────
@@ -350,7 +377,8 @@
       `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
     document.getElementById('dateVal').textContent =
       `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
-    document.title = `Key ${pad(now.getDate())}/${now.getMonth()+1} — GameBooster`;
+    // ✅ Sửa branding trong title
+    document.title = `Key ${pad(now.getDate())}/${now.getMonth()+1} — SuperPing`;
   }
   updateTime();
   setInterval(updateTime, 1000);
@@ -366,16 +394,44 @@
     }
   })();
 
-  // ── COPY ────────────────────────────────────────────
+  // ── COPY — có fallback cho mobile ────────────────────
   function copyKey() {
     const val = document.getElementById('keyInput').value;
-    if (!val) return showToast('Không có key để copy!');
-    navigator.clipboard.writeText(val).then(() => showToast('Đã copy key!'));
+    if (!val) return showToast('Không có key để copy!', true);
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(val)
+        .then(() => showToast('Đã copy key!'))
+        .catch(() => fallbackCopy(val));
+    } else {
+      fallbackCopy(val);
+    }
   }
 
-  function showToast(msg) {
+  // ✅ Fallback cho trình duyệt không hỗ trợ Clipboard API
+  function fallbackCopy(val) {
+    const input = document.getElementById('keyInput');
+    input.select();
+    input.setSelectionRange(0, 99999);
+    try {
+      document.execCommand('copy');
+      showToast('Đã copy key!');
+    } catch {
+      showToast('Không thể copy, hãy copy thủ công!', true);
+    }
+  }
+
+  function showToast(msg, isError = false) {
     const t = document.getElementById('toast');
+    const icon = t.querySelector('i');
     t.querySelector('span').textContent = msg;
+    if (isError) {
+      t.classList.add('error');
+      icon.className = 'fas fa-times-circle';
+    } else {
+      t.classList.remove('error');
+      icon.className = 'fas fa-check-circle';
+    }
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2200);
   }
@@ -398,18 +454,7 @@
       icon.className = 'fas fa-music';
     }
   }
-
 </script>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-copy">
-      © 2026 <span>GameBooster</span> · All rights reserved
-    </div>
-    <div class="footer-links">
-      <a href="terms.html">Điều khoản</a>
-      <a href="privacy.html">Bảo mật</a>
-    </div>
-  </div>
-</footer>
+
 </body>
 </html>

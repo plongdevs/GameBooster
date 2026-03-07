@@ -1,9 +1,10 @@
+<!--Code by PLongDeveloper don't steal my code :(-->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameBooster - Điều Khoản Sử Dụng</title>
+<title>SuperPing — Điều Khoản Sử Dụng</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -17,14 +18,21 @@
     --muted: rgba(200,210,230,0.45);
     --border: rgba(0,229,255,0.12);
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
   html { scroll-behavior: smooth; }
+
+  /* ✅ flex-column để footer dính đáy */
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background: var(--bg); color: var(--text);
-    min-height: 100vh; overflow-x: hidden;
-    padding-bottom: 80px;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    overflow-x: hidden;
   }
+
+  /* ── BACKGROUND ── */
   .bg-grid {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background-image:
@@ -36,11 +44,22 @@
     position: fixed; pointer-events: none; z-index: 0;
     border-radius: 50%; filter: blur(80px);
   }
-  .bg-orb-1 { width: 500px; height: 500px; top: -150px; left: -150px; background: rgba(0,229,255,0.04); animation: orbFloat 10s ease-in-out infinite alternate; }
-  .bg-orb-2 { width: 400px; height: 400px; bottom: -100px; right: -100px; background: rgba(123,97,255,0.05); animation: orbFloat 13s ease-in-out infinite alternate-reverse; }
-  @keyframes orbFloat { from { transform: scale(1); } to { transform: scale(1.15) translate(10px,-10px); } }
+  .bg-orb-1 {
+    width: 500px; height: 500px; top: -150px; left: -150px;
+    background: rgba(0,229,255,0.04);
+    animation: orbFloat 10s ease-in-out infinite alternate;
+  }
+  .bg-orb-2 {
+    width: 400px; height: 400px; bottom: -100px; right: -100px;
+    background: rgba(123,97,255,0.05);
+    animation: orbFloat 13s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes orbFloat {
+    from { transform: scale(1); }
+    to   { transform: scale(1.15) translate(10px,-10px); }
+  }
 
-  /* NAV */
+  /* ── NAV ── */
   nav {
     position: sticky; top: 0; z-index: 100;
     padding: 16px 24px;
@@ -53,22 +72,26 @@
     background: rgba(255,255,255,0.05); border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
     color: var(--muted); text-decoration: none; font-size: 0.85rem;
-    transition: 0.2s;
+    /* ✅ thêm property vào transition */
+    transition: color 0.2s, border-color 0.2s;
   }
   .nav-back:hover { color: var(--accent); border-color: rgba(0,229,255,0.3); }
   .nav-title { font-size: 0.95rem; font-weight: 700; }
   .nav-title span { color: var(--accent); }
 
-  /* LAYOUT */
-  .wrap {
+  /* ── LAYOUT — flex:1 để footer dính đáy ── */
+  .main-content {
     position: relative; z-index: 1;
-    max-width: 720px; margin: 0 auto; padding: 48px 24px;
+    flex: 1;
+  }
+  .wrap {
+    max-width: 720px; margin: 0 auto; padding: 48px 24px 64px;
   }
 
-  /* HERO */
+  /* ── DOC HERO ── */
   .doc-hero { margin-bottom: 48px; animation: fadeUp 0.5s ease forwards; }
   .doc-tag {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* ✅ Xoá font-family thừa */
     font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase;
     color: var(--accent); margin-bottom: 14px; display: block;
   }
@@ -77,13 +100,13 @@
     letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;
   }
   .doc-meta {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* ✅ Xoá font-family thừa */
     font-size: 0.72rem; color: var(--muted);
     display: flex; gap: 20px; flex-wrap: wrap;
   }
   .doc-meta span { display: flex; align-items: center; gap: 6px; }
 
-  /* SECTIONS */
+  /* ── SECTIONS ── */
   .section {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 20px; padding: 32px;
@@ -105,7 +128,7 @@
   .section:nth-child(7) { animation-delay: 0.58s; }
 
   .section-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* ✅ Xoá font-family thừa */
     font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
     color: var(--accent); margin-bottom: 10px; display: block;
   }
@@ -139,7 +162,6 @@
   }
   .highlight-box i { color: var(--accent); margin-right: 8px; }
 
-  /* CONTACT */
   .contact-link {
     display: inline-flex; align-items: center; gap: 8px;
     color: var(--accent); text-decoration: none; font-weight: 700;
@@ -148,73 +170,38 @@
   }
   .contact-link:hover { opacity: 0.75; }
 
-  /* FOOTER */
+  /* ── FOOTER — một block duy nhất, không duplicate ── */
   footer {
-    position: relative; z-index: 1; text-align: center;
-    padding: 32px 20px 0;
-    font-family: 'Google Sans','Syne',sans-serif;
-    font-size: 0.72rem; font-weight: 500;
-    color: rgba(200,210,230,0.25); letter-spacing: 0.2px;
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    background: rgba(10,14,26,0.6);
+    backdrop-filter: blur(12px);
+    padding: 32px 24px;
   }
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+  .footer-copy span { color: var(--accent); font-weight: 700; }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a {
+    font-size: 0.75rem; color: rgba(0,229,255,0.5);
+    text-decoration: none; transition: color 0.2s; /* ✅ thêm property */
+  }
+  .footer-links a:hover { color: var(--accent); }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  /* ── RESPONSIVE ── */
   @media (max-width: 500px) { .section { padding: 24px 20px; } }
-  /* ── FIXED FOOTER ── */
-footer {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid var(--border);
-  background: rgba(10,14,26,0.6);
-  backdrop-filter: blur(12px);
-  padding: 32px 24px;
-}
-
-.footer-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.footer-copy {
-  font-size: 0.78rem;
-  color: var(--muted);
-}
-
-.footer-copy span {
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.footer-links {
-  display: flex;
-  gap: 18px;
-}
-
-.footer-links a {
-  font-size: 0.75rem;
-  color: rgba(0,229,255,0.5);
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.footer-links a:hover {
-  color: var(--accent);
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-  .footer-inner {
-    flex-direction: column;
-    text-align: center;
+  @media (max-width: 600px) {
+    .footer-inner { flex-direction: column; text-align: center; }
   }
-}
 </style>
 </head>
 <body>
@@ -225,101 +212,101 @@ footer {
 
 <nav>
   <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i></a>
-  <div class="nav-title">Game<span>Booster</span></div>
+  <div class="nav-title">Super<span> Ping</span></div>
 </nav>
 
-<div class="wrap">
+<div class="main-content">
+  <div class="wrap">
 
-  <div class="doc-hero">
-    <span class="doc-tag">Pháp lý</span>
-    <h1 class="doc-title">Điều Khoản<br>Sử Dụng</h1>
-    <div class="doc-meta">
-      <span><i class="fas fa-calendar-alt"></i> Cập nhật: 27/02/2026</span>
-      <span><i class="fas fa-language"></i> Tiếng Việt</span>
+    <div class="doc-hero">
+      <span class="doc-tag">Pháp lý</span>
+      <h1 class="doc-title">Điều Khoản<br>Sử Dụng</h1>
+      <div class="doc-meta">
+        <span><i class="fas fa-calendar-alt"></i> Cập nhật: 27/02/2026</span>
+        <span><i class="fas fa-language"></i> Tiếng Việt</span>
+      </div>
     </div>
-  </div>
 
-  <div class="section">
-    <span class="section-num">01</span>
-    <h2>Chấp Nhận Điều Khoản</h2>
-    <p>Bằng việc tải xuống, cài đặt hoặc sử dụng ứng dụng GameBooster ("Ứng dụng"), bạn đồng ý bị ràng buộc bởi các Điều khoản Sử dụng này. Nếu bạn không đồng ý với bất kỳ phần nào, vui lòng không sử dụng Ứng dụng.</p>
-    <p>Chúng tôi có quyền cập nhật các điều khoản này bất kỳ lúc nào. Việc tiếp tục sử dụng Ứng dụng sau khi có thay đổi đồng nghĩa với việc bạn chấp nhận các điều khoản mới.</p>
-  </div>
-
-  <div class="section">
-    <span class="section-num">02</span>
-    <h2>Mô Tả Dịch Vụ</h2>
-    <p>GameBooster là ứng dụng hỗ trợ trải nghiệm game trên nền tảng Android. Ứng dụng sử dụng hệ thống xác thực key để kiểm soát quyền truy cập và hoạt động hoàn toàn không cần quyền root.</p>
-    <div class="highlight-box">
-      <i class="fas fa-info-circle"></i>
-      GameBooster không can thiệp vào dữ liệu cá nhân, tài khoản game hay các ứng dụng khác trên thiết bị của bạn.
+    <div class="section">
+      <span class="section-num">01</span>
+      <h2>Chấp Nhận Điều Khoản</h2>
+      <p>Bằng việc tải xuống, cài đặt hoặc sử dụng ứng dụng SuperPing ("Ứng dụng"), bạn đồng ý bị ràng buộc bởi các Điều khoản Sử dụng này. Nếu bạn không đồng ý với bất kỳ phần nào, vui lòng không sử dụng Ứng dụng.</p>
+      <p>Chúng tôi có quyền cập nhật các điều khoản này bất kỳ lúc nào. Việc tiếp tục sử dụng Ứng dụng sau khi có thay đổi đồng nghĩa với việc bạn chấp nhận các điều khoản mới.</p>
     </div>
-  </div>
 
-  <div class="section">
-    <span class="section-num">03</span>
-    <h2>Quyền Sử Dụng</h2>
-    <p>Chúng tôi cấp cho bạn quyền sử dụng cá nhân, không độc quyền, không thể chuyển nhượng đối với Ứng dụng với các điều kiện sau:</p>
-    <ul>
-      <li>Chỉ sử dụng cho mục đích cá nhân, phi thương mại</li>
-      <li>Không sao chép, phân phối lại hoặc bán Ứng dụng dưới bất kỳ hình thức nào</li>
-      <li>Không dịch ngược, giải mã hay cố gắng trích xuất mã nguồn</li>
-      <li>Không sử dụng key của người khác hoặc chia sẻ key cá nhân vì mục đích thương mại</li>
-      <li>Không sử dụng Ứng dụng để vi phạm điều khoản của bất kỳ trò chơi hay nền tảng nào</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <span class="section-num">04</span>
-    <h2>Hệ Thống Key & Tài Khoản</h2>
-    <p>Để sử dụng Ứng dụng, bạn cần có key hợp lệ được cấp thông qua hệ thống của chúng tôi. Mỗi key gắn với một thiết bị cụ thể thông qua Android ID và có thời hạn sử dụng.</p>
-    <ul>
-      <li>Key chỉ dành cho sử dụng cá nhân, không được chia sẻ hay bán lại</li>
-      <li>Chúng tôi có quyền vô hiệu hóa key nếu phát hiện hành vi vi phạm</li>
-      <li>Key hết hạn sẽ không được gia hạn tự động</li>
-      <li>Mọi hành vi gian lận hệ thống key sẽ dẫn đến cấm thiết bị vĩnh viễn</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <span class="section-num">05</span>
-    <h2>Giới Hạn Trách Nhiệm</h2>
-    <p>Ứng dụng được cung cấp theo hình thức "nguyên trạng" mà không có bất kỳ bảo đảm nào, dù rõ ràng hay ngụ ý. Chúng tôi không chịu trách nhiệm về:</p>
-    <ul>
-      <li>Bất kỳ thiệt hại trực tiếp hoặc gián tiếp nào phát sinh từ việc sử dụng Ứng dụng</li>
-      <li>Tài khoản game bị khóa do vi phạm điều khoản của nhà phát hành game</li>
-      <li>Gián đoạn dịch vụ do bảo trì hoặc sự cố kỹ thuật</li>
-      <li>Mất dữ liệu do lỗi thiết bị hoặc hết hạn key</li>
-    </ul>
-    <div class="highlight-box">
-      <i class="fas fa-exclamation-triangle"></i>
-      Người dùng tự chịu trách nhiệm về mọi hậu quả phát sinh từ việc sử dụng Ứng dụng trong các trò chơi có chính sách chống gian lận.
+    <div class="section">
+      <span class="section-num">02</span>
+      <h2>Mô Tả Dịch Vụ</h2>
+      <p>SuperPing là ứng dụng hỗ trợ trải nghiệm game trên nền tảng Android. Ứng dụng sử dụng hệ thống xác thực key để kiểm soát quyền truy cập và hoạt động hoàn toàn không cần quyền root.</p>
+      <div class="highlight-box">
+        <i class="fas fa-info-circle"></i>
+        SuperPing không can thiệp vào dữ liệu cá nhân, tài khoản game hay các ứng dụng khác trên thiết bị của bạn.
+      </div>
     </div>
-  </div>
 
-  <div class="section">
-    <span class="section-num">06</span>
-    <h2>Chấm Dứt Dịch Vụ</h2>
-    <p>Chúng tôi có quyền chấm dứt hoặc tạm ngừng quyền truy cập của bạn ngay lập tức, không cần báo trước, nếu bạn vi phạm bất kỳ điều khoản nào được liệt kê.</p>
-    <p>Khi chấm dứt, quyền sử dụng Ứng dụng của bạn sẽ ngay lập tức hết hiệu lực và bạn phải xóa tất cả bản sao khỏi thiết bị.</p>
-  </div>
+    <div class="section">
+      <span class="section-num">03</span>
+      <h2>Quyền Sử Dụng</h2>
+      <p>Chúng tôi cấp cho bạn quyền sử dụng cá nhân, không độc quyền, không thể chuyển nhượng đối với Ứng dụng với các điều kiện sau:</p>
+      <ul>
+        <li>Chỉ sử dụng cho mục đích cá nhân, phi thương mại</li>
+        <li>Không sao chép, phân phối lại hoặc bán Ứng dụng dưới bất kỳ hình thức nào</li>
+        <li>Không dịch ngược, giải mã hay cố gắng trích xuất mã nguồn</li>
+        <li>Không sử dụng key của người khác hoặc chia sẻ key cá nhân vì mục đích thương mại</li>
+        <li>Không sử dụng Ứng dụng để vi phạm điều khoản của bất kỳ trò chơi hay nền tảng nào</li>
+      </ul>
+    </div>
 
-  <div class="section">
-    <span class="section-num">07</span>
-    <h2>Liên Hệ</h2>
-    <p>Nếu bạn có câu hỏi về Điều khoản Sử dụng này, vui lòng liên hệ với chúng tôi:</p>
-    <a href="https://zalo.me/84936384089" class="contact-link" target="_blank">
-      <i class="fas fa-phone"></i> Liên hệ qua Zalo
-    </a>
-  </div>
+    <div class="section">
+      <span class="section-num">04</span>
+      <h2>Hệ Thống Key & Tài Khoản</h2>
+      <p>Để sử dụng Ứng dụng, bạn cần có key hợp lệ được cấp thông qua hệ thống của chúng tôi. Mỗi key gắn với một thiết bị cụ thể thông qua Android ID và có thời hạn sử dụng.</p>
+      <ul>
+        <li>Key chỉ dành cho sử dụng cá nhân, không được chia sẻ hay bán lại</li>
+        <li>Chúng tôi có quyền vô hiệu hóa key nếu phát hiện hành vi vi phạm</li>
+        <li>Key hết hạn sẽ không được gia hạn tự động</li>
+        <li>Mọi hành vi gian lận hệ thống key sẽ dẫn đến cấm thiết bị vĩnh viễn</li>
+      </ul>
+    </div>
 
+    <div class="section">
+      <span class="section-num">05</span>
+      <h2>Giới Hạn Trách Nhiệm</h2>
+      <p>Ứng dụng được cung cấp theo hình thức "nguyên trạng" mà không có bất kỳ bảo đảm nào, dù rõ ràng hay ngụ ý. Chúng tôi không chịu trách nhiệm về:</p>
+      <ul>
+        <li>Bất kỳ thiệt hại trực tiếp hoặc gián tiếp nào phát sinh từ việc sử dụng Ứng dụng</li>
+        <li>Tài khoản game bị khóa do vi phạm điều khoản của nhà phát hành game</li>
+        <li>Gián đoạn dịch vụ do bảo trì hoặc sự cố kỹ thuật</li>
+        <li>Mất dữ liệu do lỗi thiết bị hoặc hết hạn key</li>
+      </ul>
+      <div class="highlight-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        Người dùng tự chịu trách nhiệm về mọi hậu quả phát sinh từ việc sử dụng Ứng dụng trong các trò chơi có chính sách chống gian lận.
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-num">06</span>
+      <h2>Chấm Dứt Dịch Vụ</h2>
+      <p>Chúng tôi có quyền chấm dứt hoặc tạm ngừng quyền truy cập của bạn ngay lập tức, không cần báo trước, nếu bạn vi phạm bất kỳ điều khoản nào được liệt kê.</p>
+      <p>Khi chấm dứt, quyền sử dụng Ứng dụng của bạn sẽ ngay lập tức hết hiệu lực và bạn phải xóa tất cả bản sao khỏi thiết bị.</p>
+    </div>
+
+    <div class="section">
+      <span class="section-num">07</span>
+      <h2>Liên Hệ</h2>
+      <p>Nếu bạn có câu hỏi về Điều khoản Sử dụng này, vui lòng liên hệ với chúng tôi:</p>
+      <a href="https://zalo.me/84936384089" class="contact-link" target="_blank">
+        <i class="fas fa-phone"></i> Liên hệ qua Zalo
+      </a>
+    </div>
+
+  </div>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-copy">
-      © 2026 <span>GameBooster</span> · All rights reserved
-    </div>
+    <div class="footer-copy">© 2026 <span>SuperPing</span> · All rights reserved</div>
     <div class="footer-links">
       <a href="terms.html">Điều khoản</a>
       <a href="privacy.html">Bảo mật</a>

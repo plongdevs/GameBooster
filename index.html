@@ -4,8 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameBooster — Best FakeLag on this time</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>SuperPing — Best FakeLag on this time</title>
+<!-- ✅ Thêm Space Mono vào import -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
@@ -46,8 +47,16 @@
   }
   .bg-orb-1 { width: 700px; height: 700px; top: -200px; left: -200px; background: rgba(0,229,255,0.055); }
   .bg-orb-2 { width: 500px; height: 500px; bottom: -100px; right: -100px; background: rgba(123,97,255,0.06); animation-delay: -4s; }
-  .bg-orb-3 { width: 400px; height: 400px; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,255,170,0.03); animation-delay: -7s; }
-  @keyframes orbFloat { from { transform: scale(1) translate(0,0); } to { transform: scale(1.15) translate(20px, -20px); } }
+  /* ✅ Sửa bg-orb-3: tách transform trung tâm ra khỏi animation để không bị override */
+  .bg-orb-3 {
+    width: 400px; height: 400px;
+    top: calc(50% - 200px); left: calc(50% - 200px);
+    background: rgba(0,255,170,0.03); animation-delay: -7s;
+  }
+  @keyframes orbFloat {
+    from { transform: scale(1) translate(0,0); }
+    to   { transform: scale(1.15) translate(20px,-20px); }
+  }
 
   /* ── NAV ── */
   nav {
@@ -63,8 +72,13 @@
     display: flex; align-items: center; gap: 8px;
   }
   .nav-brand span { color: var(--accent); }
-  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 10px var(--green);
+    animation: pulse 2s infinite;
+  }
   @keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.6; transform:scale(0.85); } }
+  /* ✅ Space Mono giờ được import, nav-badge hiển thị đúng font */
   .nav-badge {
     font-family: 'Space Mono', monospace;
     font-size: 0.62rem; color: var(--accent);
@@ -84,7 +98,6 @@
     padding: 80px 24px 60px;
   }
   .hero-eyebrow {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
     color: var(--accent); text-transform: uppercase;
     margin-bottom: 20px;
@@ -113,7 +126,9 @@
   .btn-cta {
     padding: 14px 28px; border-radius: 14px;
     font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 700;
-    cursor: pointer; border: none; transition: 0.2s;
+    cursor: pointer; border: none;
+    /* ✅ Sửa transition: thêm property rõ ràng */
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
     display: flex; align-items: center; gap: 8px;
     text-decoration: none;
   }
@@ -132,7 +147,9 @@
     margin-top: 60px; color: var(--muted); font-size: 0.72rem;
     display: flex; flex-direction: column; align-items: center; gap: 8px;
     opacity: 0; animation: fadeUp 0.6s ease 0.7s forwards;
-    font-family: 'Plus Jakarta Sans', sans-serif; monospace; letter-spacing: 1px;
+    /* ✅ Xoá "monospace;" lơ lửng, giữ đúng cú pháp */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 1px;
   }
   .hero-scroll i { animation: bounce 1.5s infinite; }
   @keyframes bounce { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(5px); } }
@@ -151,6 +168,7 @@
     border-bottom: 1px solid var(--border);
     background: rgba(10,14,26,0.5);
     backdrop-filter: blur(10px);
+    position: relative; z-index: 1;
   }
   .stat-item {
     flex: 1; max-width: 180px; text-align: center; padding: 16px;
@@ -162,18 +180,14 @@
   }
   .stat-num {
     font-size: 1.8rem; font-weight: 800; color: var(--accent);
-    font-family: 'Plus Jakarta Sans', sans-serif;
     display: block;
   }
   .stat-lbl { font-size: 0.7rem; color: var(--muted); margin-top: 4px; font-weight: 600; letter-spacing: 0.5px; }
 
   /* ── FEATURES ── */
   .features { padding: 100px 24px; }
-  .section-label {
-    text-align: center; margin-bottom: 60px;
-  }
+  .section-label { text-align: center; margin-bottom: 60px; }
   .section-label .tag {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
     color: var(--accent); margin-bottom: 14px; display: block;
   }
@@ -214,12 +228,12 @@
     width: 46px; height: 46px; border-radius: 14px; margin-bottom: 18px;
     display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
   }
-  .feat-icon.c1 { background: rgba(0,229,255,0.1); color: var(--accent); border: 1px solid rgba(0,229,255,0.2); }
-  .feat-icon.c2 { background: rgba(123,97,255,0.1); color: var(--accent2); border: 1px solid rgba(123,97,255,0.2); }
-  .feat-icon.c3 { background: rgba(0,255,170,0.08); color: var(--green); border: 1px solid rgba(0,255,170,0.18); }
-  .feat-icon.c4 { background: rgba(255,204,0,0.08); color: #ffcc00; border: 1px solid rgba(255,204,0,0.18); }
-  .feat-icon.c5 { background: rgba(255,77,109,0.08); color: #ff4d6d; border: 1px solid rgba(255,77,109,0.18); }
-  .feat-icon.c6 { background: rgba(0,229,255,0.06); color: var(--accent); border: 1px solid rgba(0,229,255,0.15); }
+  .feat-icon.c1 { background: rgba(0,229,255,0.1);   color: var(--accent);  border: 1px solid rgba(0,229,255,0.2);   }
+  .feat-icon.c2 { background: rgba(123,97,255,0.1);  color: var(--accent2); border: 1px solid rgba(123,97,255,0.2);  }
+  .feat-icon.c3 { background: rgba(0,255,170,0.08);  color: var(--green);   border: 1px solid rgba(0,255,170,0.18);  }
+  .feat-icon.c4 { background: rgba(255,204,0,0.08);  color: #ffcc00;        border: 1px solid rgba(255,204,0,0.18);  }
+  .feat-icon.c5 { background: rgba(255,77,109,0.08); color: #ff4d6d;        border: 1px solid rgba(255,77,109,0.18); }
+  .feat-icon.c6 { background: rgba(0,229,255,0.06);  color: var(--accent);  border: 1px solid rgba(0,229,255,0.15);  }
 
   .feat-title { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
   .feat-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
@@ -243,8 +257,7 @@
     width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
     background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem;
-    font-weight: 700; color: var(--accent); z-index: 1;
+    font-size: 0.75rem; font-weight: 700; color: var(--accent); z-index: 1;
   }
   .step-content h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; }
   .step-content p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
@@ -270,15 +283,28 @@
     background: radial-gradient(ellipse at 50% 0%, rgba(0,229,255,0.05), transparent 60%);
     pointer-events: none;
   }
+  /* ✅ Gộp 2 block .cta-title thành 1, lấy đủ thuộc tính từ cả hai */
+  .cta-title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  /* ✅ Gộp 2 block .cta-icon thành 1 — dùng cho cả emoji và <img> */
   .cta-icon {
-    font-size: 3rem; margin-bottom: 20px; display: block;
+    font-size: 3rem;
+    width: 36px; height: 36px;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(0,229,255,0.4));
     animation: floatIcon 3s ease-in-out infinite alternate;
   }
   @keyframes floatIcon { from { transform: translateY(0); } to { transform: translateY(-8px); } }
-  .cta-title {
-    font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800;
-    letter-spacing: -0.5px; margin-bottom: 12px;
-  }
   .cta-sub {
     color: var(--muted); font-size: 0.9rem; line-height: 1.6;
     margin-bottom: 36px; max-width: 400px; margin-left: auto; margin-right: auto;
@@ -304,20 +330,29 @@
   .btn-big:active { transform: translateY(0); }
   .cta-note {
     margin-top: 16px; font-size: 0.72rem; color: var(--muted);
-    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 
-  /* ── FOOTER ── */
+  /* ── FOOTER — một block duy nhất, không duplicate ── */
   footer {
     position: relative; z-index: 1;
-    text-align: center;
-    padding: 28px 20px;
     border-top: 1px solid var(--border);
-    font-family: 'Google Sans', 'Syne', sans-serif;
-    font-size: 0.78rem; font-weight: 500;
-    color: rgba(200,210,230,0.3);
-    letter-spacing: 0.2px;
+    background: rgba(10,14,26,0.6);
+    backdrop-filter: blur(12px);
+    padding: 32px 24px;
   }
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+  .footer-copy span { color: var(--accent); font-weight: 700; }
+  .footer-links { display: flex; gap: 18px; }
+  .footer-links a {
+    font-size: 0.75rem; color: rgba(0,229,255,0.5);
+    text-decoration: none; transition: color 0.2s; /* ✅ thêm property */
+  }
+  .footer-links a:hover { color: var(--accent); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 500px) {
@@ -326,77 +361,9 @@
     .stats { flex-wrap: wrap; }
     .btn-big { padding: 16px 28px; font-size: 0.95rem; }
   }
-      /* ── FIXED FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      background: rgba(10,14,26,0.6);
-      backdrop-filter: blur(12px);
-      padding: 32px 24px;
-    }
-    
-    .footer-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    
-    .footer-copy {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    
-    .footer-copy span {
-      color: var(--accent);
-      font-weight: 700;
-    }
-    
-    .footer-links {
-      display: flex;
-      gap: 18px;
-    }
-    
-    .footer-links a {
-      font-size: 0.75rem;
-      color: rgba(0,229,255,0.5);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-    
-    /* Mobile */
-    @media (max-width: 600px) {
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-    .cta-title {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-    
-    .cta-icon {
-      width: 36px;   /* nhỏ gọn */
-      height: 36px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(0,229,255,0.4));
-    }
+  @media (max-width: 600px) {
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
 </style>
 </head>
 <body>
@@ -423,7 +390,7 @@
     <span class="grad">Không giới hạn.</span>
   </h1>
   <p class="hero-sub">
-    GameBooster là FakeLag tốt nhất ở thời điểm hiện tại — nhẹ, nhanh, không cần root, chạy hoàn toàn ngầm và đặc biệt là không can thiệp vào game.
+    SuperPing là FakeLag tốt nhất ở thời điểm hiện tại — nhẹ, nhanh, không cần root, chạy hoàn toàn ngầm và đặc biệt là không can thiệp vào game.
   </p>
   <div class="hero-btns">
     <a href="download.html" class="btn-cta primary"><i class="fas fa-download"></i> Tải Xuống Ngay</a>
@@ -472,7 +439,7 @@
     <div class="feat-card green">
       <div class="feat-icon c3"><i class="fas fa-key"></i></div>
       <div class="feat-title">Hệ thống Key bảo mật</div>
-      <div class="feat-desc">Xác thực key qua server, hỗ trợ key vip custom được theo tên mình</div>
+      <div class="feat-desc">Xác thực key qua server, hỗ trợ key vip custom được theo tên mình.</div>
     </div>
     <div class="feat-card">
       <div class="feat-icon c4"><i class="fas fa-cloud"></i></div>
@@ -534,7 +501,7 @@
       <i class="fas fa-download"></i>
       Sử Dụng Ngay Bây Giờ
     </a>
-    <div class="cta-note">Miễn phí · Android 8.0+ · 7MB</div>
+    <div class="cta-note">Miễn phí · Android 7.0+ · 7MB</div>
   </div>
 </section>
 
@@ -542,7 +509,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-copy">
-      © 2026 <span>GameBooster</span> · All rights reserved
+      © 2026 <span>SuperPing</span> · All rights reserved
     </div>
     <div class="footer-links">
       <a href="terms.html">Điều khoản</a>
